@@ -18,6 +18,7 @@ all : $(OBJS)
 ifeq ($(OS),Windows_NT)
 	copy $(DEPENDENCIES) bin
 	copy $(BIN).exe bin
+	del $(BIN).exe
 else
 	cp $(BIN) bin
 endif
