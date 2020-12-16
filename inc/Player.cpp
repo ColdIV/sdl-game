@@ -21,3 +21,21 @@ int32_t Player::getWidth () {
 int32_t Player::getHeight () {
     return this->height;
 }
+
+int32_t Player::getSpeed () {
+    return this->speed;
+}
+
+void Player::move (int32_t x, int32_t y) {
+    this->position.x += x;
+    this->position.y += y;
+}
+
+// You are supposed to call this with 1 or 0s only
+// But you can of course move by multiples...
+void Player::move (int32_t w, int32_t a, int32_t s, int32_t d) {
+    // reverse direction
+    w *= -1; a *= -1;
+    this->position.x += this->speed * a + this->speed * d;
+    this->position.y += this->speed * w + this->speed * s;
+}
