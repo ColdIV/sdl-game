@@ -26,7 +26,6 @@ endif
 
 clean:
 ifeq ($(OS),Windows_NT)
-	del $(BIN).exe
 	del bin\$(BIN).exe
 	del bin\*.dll
 else
