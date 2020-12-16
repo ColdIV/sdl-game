@@ -1,6 +1,7 @@
 OBJS = *.cpp
 
 BIN = game
+HFILES = inc/*.cpp
 INC = -ID:\programs\SDL2\SDL2-2.0.12\i686-w64-mingw32\include
 LIB = -LD:\programs\SDL2\SDL2-2.0.12\i686-w64-mingw32\lib
 DEPENDENCIES = libs\*.dll
@@ -14,7 +15,7 @@ endif
 
 
 all : $(OBJS)
-	g++ $(OBJS) $(ARGS) -o $(BIN)
+	g++ $(HFILES) $(OBJS) $(ARGS) -o $(BIN)
 ifeq ($(OS),Windows_NT)
 	copy $(DEPENDENCIES) bin
 	copy $(BIN).exe bin
