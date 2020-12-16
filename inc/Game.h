@@ -2,6 +2,7 @@
 #define _GAME_H_
 
 #include <SDL2/SDL.h>
+#include "Player.h"
 
 class Game {
     private:
@@ -15,6 +16,8 @@ class Game {
 		const char *title = "Title";
 		int32_t width = 640;
 		int32_t height = 480;
+
+        Player player = Player ();
     public:
         Game ();
 
