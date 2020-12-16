@@ -7,7 +7,7 @@ Game::Game () {
 	this->init();
 }
 
-Game::Game (const char *title, int32_t width, int32_t height) {
+Game::Game (char *title, int32_t width, int32_t height) {
     this->title = title;
 	this->width = width;
 	this->height = height;
@@ -51,8 +51,12 @@ void Game::start () {
 
     // Game loop
 	while (this->running) {
+		this->fpsTimer.start();
+
 		this->render();
 		this->update();
+
+		while(this->fpsTimer.getTicks() < 1000 / this->FRAMES_PER_SECOND) {}
 	}
 
 }

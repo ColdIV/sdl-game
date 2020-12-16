@@ -3,9 +3,13 @@
 
 #include <SDL2/SDL.h>
 #include "Player.h"
+#include "Timer.h"
 
 class Game {
     private:
+        // Constants
+        const int FRAMES_PER_SECOND = 60;
+
         // SDL
         SDL_Window *window = NULL;
 		SDL_Renderer *renderer = NULL;
@@ -13,15 +17,16 @@ class Game {
 
         // Game attributes
         bool running = false;
-		const char *title = "Title";
+		char *title = "Title";
 		int32_t width = 640;
 		int32_t height = 480;
 
         Player player = Player ();
+        Timer fpsTimer = Timer ();
     public:
         Game ();
 
-        Game (const char *title, int32_t width, int32_t height);
+        Game (char *title, int32_t width, int32_t height);
 
         ~Game ();
 
