@@ -1,6 +1,8 @@
 #include "World.h"
 
-World::World () {}
+World::World () {
+    this->level.printToConsole(); // @TODO: Remove / testing
+}
         
 World::World (SDL_Point position, int32_t width, int32_t height) {
     this->position = position;
