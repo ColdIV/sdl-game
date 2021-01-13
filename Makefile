@@ -16,12 +16,13 @@ endif
 
 
 all : $(OBJS)
-	g++ $(HFILES) $(OBJS) $(ARGS) $(PRODFLAGS) -o $(BIN)
 ifeq ($(OS),Windows_NT)
+	g++ $(HFILES) $(OBJS) $(ARGS) $(PRODFLAGS) -o $(BIN)
 	copy $(DEPENDENCIES) bin
 	copy $(BIN).exe bin
 	del $(BIN).exe
 else
+	g++ $(HFILES) $(OBJS) $(ARGS) -o $(BIN)
 	cp $(BIN) bin
 endif
 
