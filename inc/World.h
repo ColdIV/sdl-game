@@ -31,6 +31,10 @@ class World {
         void update ();
 
         void draw (SDL_Renderer *renderer);
+
+        void nextLevel ();
+
+        void setLevel (int index);
 };
 
 #endif

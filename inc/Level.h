@@ -20,6 +20,10 @@ class Level {
 
         ~Level ();
 
+        int getLevel ();
+
+        void setLevel (int index);
+
         void save ();
 
         void load ();

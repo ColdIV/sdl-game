@@ -1,8 +1,6 @@
 #include "World.h"
 
-World::World () {
-    this->level.printToConsole(); // @TODO: Remove / testing
-}
+World::World () {}
         
 World::World (SDL_Point position, int32_t width, int32_t height) {
     this->gameView = GameView (position, width, height);
@@ -46,11 +44,22 @@ void World::update () {
 void World::draw (SDL_Renderer *renderer) {
     int32_t w, h;
 	SDL_Point p;
-    
+
     p = this->gameView.getPosition();
     w = this->gameView.getWidth();
     h = this->gameView.getHeight();
 
     this->level.draw(renderer, this->tileSize, p, w, h);
     this->player.draw(renderer, p, w, h);
+}
+
+void World::nextLevel () {
+    int currentLevel = this->level.getLevel();
+    this->level.setLevel(currentLevel + 1);
+    this->level.load();
+}
+
+void World::setLevel (int index) {
+    this->level.setLevel(index);
+    this->level.load();
 }

@@ -6,6 +6,14 @@ Level::Level () {
 
 Level::~Level () {}
 
+int Level::getLevel () {
+    return this->index;
+}
+
+void Level::setLevel (int index) {
+    this->index = index;
+}
+
 void Level::save () { 
     std::string path = this->filepath + std::to_string(this->index) + this->filetype;
     const char* cpath = &path[0];
