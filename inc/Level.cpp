@@ -44,7 +44,11 @@ void Level::printToConsole () {
 void Level::getExampleLevel () {
     for (int x = 0; x < this->_X; ++x) {
         for (int y = 0; y < this->_Y; ++y) {
-            this->data[x][y] = x;
+            this->data[x][y] = 0;
+
+            if (1 + y == this->_Y) {
+                this->data[x][y] = 1;
+            }
         }
     }
 
