@@ -17,7 +17,7 @@ class Game {
 
         // Game attributes
         bool running = false;
-		char *title = "Title";
+		char *title = (char*)"Title";
 		int32_t width = 640;
 		int32_t height = 480;
 
