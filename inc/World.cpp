@@ -17,3 +17,57 @@ int32_t World::getWidth () {
 int32_t World::getHeight () {
     return this->height;
 }
+
+void World::update () {
+    SDL_Point move = { 0, 0 };
+    int32_t speed = this->player.getSpeed();
+    const Uint8 *keystates = SDL_GetKeyboardState(NULL);
+
+    if (keystates[SDL_SCANCODE_W]) {
+        move.y += -1 * speed;
+    }
+    if (keystates[SDL_SCANCODE_A]) {
+        move.x += -1 * speed;
+    }
+    if (keystates[SDL_SCANCODE_S]) {
+        move.y += 1 * speed;
+    }
+    if (keystates[SDL_SCANCODE_D]) {
+        move.x += 1 * speed;
+    }
+
+    // Move according to pressed buttons
+    this->player.move(move.x, move.y);
+
+    // Update gameView position
+    this->gameView.move(this->player.getPosition(), this->player.getWidth(), this->player.getHeight());
+}
+
+void World::draw (SDL_Renderer *renderer) {
+    int32_t w, h;
+	SDL_Point p;
+
+    SDL_Rect player_r;
+	p = this->player.getPosition();
+	w = this->player.getWidth();
+	h = this->player.getHeight();
+	player_r.x = p.x;
+	player_r.y = p.y;
+	player_r.w = w;
+	player_r.h = h;
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_RenderFillRect(renderer, &player_r);
+
+    SDL_Rect gameView_r;
+    p = this->gameView.getPosition();
+    w = this->gameView.getWidth();
+    h = this->gameView.getHeight();
+    gameView_r.x = p.x;
+    gameView_r.y = p.y;
+    gameView_r.w = w;
+    gameView_r.h = h;
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
+	SDL_RenderDrawRect(renderer, &gameView_r);
+}

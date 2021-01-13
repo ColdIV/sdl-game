@@ -27,6 +27,10 @@ class World {
         int32_t getWidth ();
 
         int32_t getHeight ();
+
+        void update ();
+
+        void draw (SDL_Renderer *renderer);
 };
 
 #endif

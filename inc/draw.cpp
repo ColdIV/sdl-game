@@ -5,17 +5,8 @@ void Game::draw () {
 	SDL_RenderClear(this->renderer);
 
 	int32_t w, h;
-	SDL_Point p;
-
-    SDL_Rect player_r;
-	p = this->world.player.getPosition();
-	w = this->world.player.getWidth();
-	h = this->world.player.getHeight();
-	player_r.x = p.x;
-	player_r.y = p.y;
-	player_r.w = w;
-	player_r.h = h;
-
+	SDL_Point p;	
+	
 	SDL_Rect world_r;
 	p = { 0, 0};
 	w = this->world.getWidth();
@@ -28,7 +19,6 @@ void Game::draw () {
 	// Draw World Border
 	SDL_SetRenderDrawColor(this->renderer, 255, 255, 0, 255);
 	SDL_RenderDrawRect(this->renderer, &world_r);
-	// Draw player
-	SDL_SetRenderDrawColor(this->renderer, 255, 0, 0, 255);
-	SDL_RenderFillRect(this->renderer, &player_r);
+
+	this->world.draw(this->renderer);
 }
