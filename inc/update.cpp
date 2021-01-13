@@ -2,7 +2,7 @@
 #include <iostream>
 void Game::update () {
     SDL_Point move = { 0, 0 };
-    int32_t speed = this->player.getSpeed();
+    int32_t speed = this->world.player.getSpeed();
     const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
     if (keystates[SDL_SCANCODE_W]) {
@@ -19,7 +19,7 @@ void Game::update () {
     }
 
     // Move according to pressed buttons
-    this->player.move(move.x, move.y);
+    this->world.player.move(move.x, move.y);
 
     // Handle events
     while (SDL_PollEvent(&(this->event))) {

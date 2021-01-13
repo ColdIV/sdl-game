@@ -2,6 +2,7 @@
 #define _WORLD_H_
 
 #include <SDL2/SDL.h>
+#include "Player.h"
 #include "Level.h"
 
 class World {
@@ -11,8 +12,11 @@ class World {
         SDL_Point position = { 0, 0 };
 
         Level level = Level ();
+        int32_t tileSize = 10;
 
     public:
+        Player player = Player ();
+        
         World ();
         
         World (SDL_Point position, int32_t width, int32_t height);

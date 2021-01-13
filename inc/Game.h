@@ -3,7 +3,6 @@
 
 #include <SDL2/SDL.h>
 #include "World.h"
-#include "Player.h"
 #include "Timer.h"
 
 class Game {
@@ -23,7 +22,6 @@ class Game {
 		int32_t height = 480;
 
         World world = World ();
-        Player player = Player ();
         Timer fpsTimer = Timer ();
     public:
         Game ();
