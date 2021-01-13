@@ -55,7 +55,7 @@ void Level::getExampleLevel () {
     this->save();
 }
 
-void Level::draw (SDL_Renderer *renderer, int32_t tileSize) {
+void Level::draw (SDL_Renderer *renderer, int32_t tileSize, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight) {
     int32_t w, h;
     SDL_Point p;
     SDL_Rect tile_r;
@@ -66,6 +66,16 @@ void Level::draw (SDL_Renderer *renderer, int32_t tileSize) {
         for (int x = 0; x < this->_X; ++x) {
             if (this->data[x][y] == 1) {
                 p = { x * tileSize, y * tileSize };
+
+                // Skip if not visible
+                if (!(p.x + w > gVPosition.x && p.x < gVPosition.x + gVWidth)) {
+                    continue;
+                }
+
+                // Translate according to gameView
+                p.x -= gVPosition.x;
+                p.y -= gVPosition.y;
+
                 tile_r.x = p.x;
                 tile_r.y = p.y;
                 tile_r.w = w;

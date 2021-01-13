@@ -40,7 +40,7 @@ void Player::move (int32_t w, int32_t a, int32_t s, int32_t d) {
     this->position.y += this->speed * w + this->speed * s;
 }
 
-void Player::draw (SDL_Renderer *renderer) {
+void Player::draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight) {
     int32_t w, h;
 	SDL_Point p;
 
@@ -48,6 +48,11 @@ void Player::draw (SDL_Renderer *renderer) {
 	p = this->getPosition();
 	w = this->getWidth();
 	h = this->getHeight();
+
+    // Translate coordinates according to gameViev
+    p.x -= gVPosition.x;
+    p.y -= gVPosition.y;
+
 	player_r.x = p.x;
 	player_r.y = p.y;
 	player_r.w = w;

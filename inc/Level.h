@@ -24,7 +24,7 @@ class Level {
 
         void load ();
 
-        void draw (SDL_Renderer *renderer, int32_t tileSize);
+        void draw (SDL_Renderer *renderer, int32_t tileSize, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight);
 
         // For testing only
         void printToConsole ();

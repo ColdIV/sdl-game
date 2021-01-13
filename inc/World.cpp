@@ -46,19 +46,11 @@ void World::update () {
 void World::draw (SDL_Renderer *renderer) {
     int32_t w, h;
 	SDL_Point p;
-
-    SDL_Rect gameView_r;
+    
     p = this->gameView.getPosition();
     w = this->gameView.getWidth();
     h = this->gameView.getHeight();
-    gameView_r.x = p.x;
-    gameView_r.y = p.y;
-    gameView_r.w = w;
-    gameView_r.h = h;
 
-    SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-	SDL_RenderDrawRect(renderer, &gameView_r);
-
-    this->level.draw(renderer, this->tileSize);
-    this->player.draw(renderer);
+    this->level.draw(renderer, this->tileSize, p, w, h);
+    this->player.draw(renderer, p, w, h);
 }
