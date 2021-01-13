@@ -17,7 +17,7 @@ void Game::draw () {
 	player_r.h = h;
 
 	SDL_Rect world_r;
-	p = this->world.getPosition();
+	p = { 0, 0};
 	w = this->world.getWidth();
 	h = this->world.getHeight();
 	world_r.x = p.x;
