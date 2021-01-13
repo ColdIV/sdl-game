@@ -28,6 +28,8 @@ class Player {
         void move (int32_t x, int32_t y);
 
         void move (int32_t w, int32_t a, int32_t s, int32_t d);
+
+        void draw (SDL_Renderer *renderer);
 };
 
 #endif

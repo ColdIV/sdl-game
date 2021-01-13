@@ -33,8 +33,8 @@ void Level::load () {
 // For testing only
 void Level::printToConsole () {
     std::cout << "Level " << this->index << "\n";
-    for (unsigned y = 0; y < this->_Y; ++y) {
-        for (unsigned x = 0; x < this->_X; ++x) {
+    for (int y = 0; y < this->_Y; ++y) {
+        for (int x = 0; x < this->_X; ++x) {
             std::cout << this->data[x][y];
         }
         std::cout << "\n";
@@ -53,4 +53,27 @@ void Level::getExampleLevel () {
     }
 
     this->save();
+}
+
+void Level::draw (SDL_Renderer *renderer, int32_t tileSize) {
+    int32_t w, h;
+    SDL_Point p;
+    SDL_Rect tile_r;
+    w = tileSize;
+    h = tileSize;
+
+    for (int y = 0; y < this->_Y; ++y) {
+        for (int x = 0; x < this->_X; ++x) {
+            if (this->data[x][y] == 1) {
+                p = { x * tileSize, y * tileSize };
+                tile_r.x = p.x;
+                tile_r.y = p.y;
+                tile_r.w = w;
+                tile_r.h = h;
+
+                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                SDL_RenderFillRect(renderer, &tile_r);
+            }
+        }
+    }
 }

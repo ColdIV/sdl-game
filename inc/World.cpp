@@ -47,18 +47,6 @@ void World::draw (SDL_Renderer *renderer) {
     int32_t w, h;
 	SDL_Point p;
 
-    SDL_Rect player_r;
-	p = this->player.getPosition();
-	w = this->player.getWidth();
-	h = this->player.getHeight();
-	player_r.x = p.x;
-	player_r.y = p.y;
-	player_r.w = w;
-	player_r.h = h;
-
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-	SDL_RenderFillRect(renderer, &player_r);
-
     SDL_Rect gameView_r;
     p = this->gameView.getPosition();
     w = this->gameView.getWidth();
@@ -70,4 +58,7 @@ void World::draw (SDL_Renderer *renderer) {
 
     SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
 	SDL_RenderDrawRect(renderer, &gameView_r);
+
+    this->level.draw(renderer, this->tileSize);
+    this->player.draw(renderer);
 }

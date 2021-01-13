@@ -12,7 +12,7 @@ class World {
         int32_t height = 500;
 
         Level level = Level ();
-        int32_t tileSize = 10;
+        int32_t tileSize = 50;
 
     public:
         GameView gameView = GameView ();

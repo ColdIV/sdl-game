@@ -1,6 +1,7 @@
 #ifndef _LEVEL_H_
 #define _LEVEL_H_
 
+#include <SDL2/SDL.h>
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -22,6 +23,8 @@ class Level {
         void save ();
 
         void load ();
+
+        void draw (SDL_Renderer *renderer, int32_t tileSize);
 
         // For testing only
         void printToConsole ();
