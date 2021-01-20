@@ -2,9 +2,11 @@
 #define _WORLD_H_
 
 #include <SDL2/SDL.h>
+#include <vector>
 #include "Player.h"
 #include "Level.h"
 #include "GameView.h"
+#include "CollidableObject.h"
 
 class World {
     private:
@@ -13,6 +15,7 @@ class World {
 
         Level level = Level ();
         int32_t tileSize = 50;
+        std::vector <CollidableObject> obstacles;
 
     public:
         GameView gameView = GameView ();
@@ -31,6 +34,10 @@ class World {
         void update ();
 
         void draw (SDL_Renderer *renderer);
+
+        void loadObstacles ();
+
+        void loadLevel (int index);
 
         void nextLevel ();
 

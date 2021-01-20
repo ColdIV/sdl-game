@@ -5,6 +5,8 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <vector>
+#include "Object.h"
 
 class Level {
     private:
@@ -14,9 +16,12 @@ class Level {
         std::string filepath = "levels/level-";
         std::string filetype = ".txt";
         int index = 1;
+        int32_t tileSize = 50;
 
     public:
         Level ();
+
+        Level (int32_t tileSize);
 
         ~Level ();
 
@@ -28,7 +33,9 @@ class Level {
 
         void load ();
 
-        void draw (SDL_Renderer *renderer, int32_t tileSize, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight);
+        void draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight);
+
+        std::vector <Object> getTilesOfType(int type);
 
         // For testing only
         void printToConsole ();
