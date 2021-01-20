@@ -6,6 +6,7 @@ World::World (SDL_Point position, int32_t width, int32_t height) {
     this->gameView = GameView (position, width, height);
     this->gameView.centerPlayer(true);
     this->level = Level (this->tileSize);
+    this->loadObstacles();
 }
 
 World::~World () {}
@@ -37,6 +38,28 @@ void World::update () {
     }
 
     // Move according to pressed buttons
+    // But check collision first...
+    SDL_Point newPosition, oldPosition = this->player.getPosition();;
+    newPosition.x = oldPosition.x + move.x;
+    newPosition.y = oldPosition.y + move.y;
+    int32_t width = this->player.getWidth();
+    int32_t height = this->player.getHeight();
+
+    for (CollidableObject co : this->obstacles) {
+        // Collision on X movement
+        if (co.collidesWithRect({newPosition.x, oldPosition.y}, width, height)) {
+            move.x = 0;
+        }
+
+        // Collision on Y movement
+        if (co.collidesWithRect({oldPosition.x, newPosition.y}, width, height)) {
+            move.y = 0;
+        }
+
+        // If both collide, break out of loop
+        if (move.x == 0 && move.y == 0) break;
+    }
+
     this->player.move(move.x, move.y);
 
     // Update gameView position
