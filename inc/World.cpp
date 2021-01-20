@@ -4,6 +4,7 @@ World::World () {}
         
 World::World (SDL_Point position, int32_t width, int32_t height) {
     this->gameView = GameView (position, width, height);
+    this->gameView.centerPlayer(true);
 }
 
 World::~World () {}

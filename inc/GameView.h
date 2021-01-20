@@ -11,6 +11,7 @@ class GameView {
 
         int32_t paddingX = 50;
         int32_t paddingY = 50;
+        bool playerCentered = false;
 
     public:
         GameView ();
@@ -24,6 +25,10 @@ class GameView {
         int32_t getWidth ();
 
         int32_t getHeight ();
+
+        void centerPlayer (bool value);
+
+        bool isPlayerCentered ();
 
         void move (SDL_Point position, int32_t width, int32_t height);
 };
