@@ -6,8 +6,8 @@
 class Object {
     private:
         int32_t width = 50;
-        int32_t height = 100;
-        SDL_Point position = { 0, 0 };
+        int32_t height = 50;
+        SDL_Point position = { 50, 50 };
 
     public:
         Object ();

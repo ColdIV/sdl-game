@@ -10,8 +10,8 @@
 
 class Level {
     private:
-        const static int _X = 10;
-        const static int _Y = 5;
+        const static int _X = 20;
+        const static int _Y = 10;
         int data[_X][_Y];
         std::string filepath = "levels/level-";
         std::string filetype = ".txt";
