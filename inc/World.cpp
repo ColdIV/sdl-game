@@ -43,25 +43,25 @@ void World::update () {
     // Check collision
     int32_t width = this->player.getWidth();
     int32_t height = this->player.getHeight();
-
+    bool checkX = true, checkY = true;
     for (CollidableObject co : this->obstacles) {
         // Collision on X movement
         if (co.collidesWithRect({newPosition.x, oldPosition.y}, width, height)) {
-            move.x = 0;
+            checkX = false;
         }
 
         // Collision on Y movement
         if (co.collidesWithRect({oldPosition.x, newPosition.y}, width, height)) {
-            move.y = 0;
+            checkY = false;
         }
 
         // If both collide, break out of loop
-        if (move.x == 0 && move.y == 0) {
+        if (checkX == false && checkY == false) {
             break;
         }
     }
 
-    if (move.x != 0 || move.y != 0) {
+    if (move.y != 0 && checkX && checkY) {
         this->player.setPosition(newPosition);
     }
 

@@ -26,7 +26,7 @@ void MoveableObject::setTurnSpeed (float turnSpeed) {
 
 void MoveableObject::turn (int32_t direction) {
     this->angle += this->getTurnSpeed() * direction;
-    if (this->angle > 360) this->angle -= 360;
+    if (this->angle > 628319) this->angle /= 100000;
 }
 
 SDL_Point MoveableObject::move (int32_t direction) {
@@ -63,5 +63,17 @@ void MoveableObject::draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t
     p.x = w / 2;
     p.y = h / 2;
 
-    SDL_RenderCopyEx(renderer, this->getTexture(), NULL, &Object_r, this->angle, &p, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(renderer, this->getTexture(), NULL, &Object_r, this->angle * 180.0 / M_PI, &p, SDL_FLIP_NONE);
+
+
+    // Debug
+    SDL_Point move_p = this->move(1);
+    SDL_Rect move_r;
+    move_r.x = move_p.x - gVPosition.x + w / 2;
+    move_r.y = move_p.y - gVPosition.y + h / 2;
+    move_r.w = 5;
+    move_r.h = 5;
+
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    SDL_RenderFillRect(renderer, &move_r);
 }

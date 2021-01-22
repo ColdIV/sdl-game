@@ -8,7 +8,7 @@ class MoveableObject : virtual public Object {
     private:
         int32_t speed = 5;
         float angle = 0;
-        float turnSpeed = 1;
+        float turnSpeed = 0.1;
 
     public:
         int32_t getSpeed ();
