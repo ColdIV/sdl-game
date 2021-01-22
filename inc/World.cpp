@@ -21,27 +21,26 @@ int32_t World::getHeight () {
 
 void World::update () {
     SDL_Point move = { 0, 0 };
-    int32_t speed = this->player.getSpeed();
     const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
     if (keystates[SDL_SCANCODE_W]) {
-        move.y += -1 * speed;
+        move.y = 1;
     }
     if (keystates[SDL_SCANCODE_A]) {
-        move.x += -1 * speed;
+        move.x = -1;
     }
     if (keystates[SDL_SCANCODE_S]) {
-        move.y += 1 * speed;
+        move.y = -1;
     }
     if (keystates[SDL_SCANCODE_D]) {
-        move.x += 1 * speed;
+        move.x = 1;
     }
 
-    // Move according to pressed buttons
-    // But check collision first...
-    SDL_Point newPosition, oldPosition = this->player.getPosition();;
-    newPosition.x = oldPosition.x + move.x;
-    newPosition.y = oldPosition.y + move.y;
+    SDL_Point oldPosition = this->player.getPosition();
+    this->player.turn(move.x);
+    SDL_Point newPosition = this->player.move(move.y);
+
+    // Check collision
     int32_t width = this->player.getWidth();
     int32_t height = this->player.getHeight();
 
@@ -57,10 +56,14 @@ void World::update () {
         }
 
         // If both collide, break out of loop
-        if (move.x == 0 && move.y == 0) break;
+        if (move.x == 0 && move.y == 0) {
+            break;
+        }
     }
 
-    this->player.move(move.x, move.y);
+    if (move.x != 0 || move.y != 0) {
+        this->player.setPosition(newPosition);
+    }
 
     // Update gameView position
     this->gameView.move(this->player.getPosition(), this->player.getWidth(), this->player.getHeight());

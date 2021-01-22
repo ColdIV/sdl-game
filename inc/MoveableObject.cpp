@@ -4,25 +4,36 @@ int32_t MoveableObject::getSpeed () {
     return this->speed;
 }
 
+float MoveableObject::getAngle () {
+    return this->angle;
+}
+
+float MoveableObject::getTurnSpeed () {
+    return this->turnSpeed;
+}
+
 void MoveableObject::setSpeed (int32_t speed) {
     this->speed = speed;
 }
 
-void MoveableObject::move (int32_t x, int32_t y) {
-    SDL_Point tPos = this->getPosition();
-    this->setPosition(tPos.x + x, tPos.y + y);
+void MoveableObject::setAngle (float angle) {
+    this->angle = angle;
 }
 
-// You are supposed to call this with 1 or 0s only
-// But you can of course move by multiples...
-void MoveableObject::move (int32_t w, int32_t a, int32_t s, int32_t d) {
-    // reverse direction
-    w *= -1; a *= -1;
+void MoveableObject::setTurnSpeed (float turnSpeed) {
+    this->turnSpeed = turnSpeed;
+}
 
+void MoveableObject::turn (int32_t direction) {
+    this->angle += this->getTurnSpeed() * direction;
+    if (this->angle > 360) this->angle -= 360;
+}
+
+SDL_Point MoveableObject::move (int32_t direction) {
     SDL_Point tPos = this->getPosition();
-
-    int32_t x = tPos.x + this->speed * a + this->speed * d;
-    int32_t y = tPos.y + this->speed * w + this->speed * s;
+    int32_t x, y;
+    x = tPos.x + (cos(this->getAngle()) * this->getSpeed()) * direction;
+    y = tPos.y + (sin(this->getAngle()) * this->getSpeed()) * direction;
     
-    this->setPosition(x, y);
+    return {x, y};
 }
