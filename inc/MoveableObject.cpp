@@ -37,3 +37,31 @@ SDL_Point MoveableObject::move (int32_t direction) {
     
     return {x, y};
 }
+
+void MoveableObject::draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight) {
+    if (this->getTexture() == nullptr) {
+        this->loadTexture(renderer);
+    }
+
+    int32_t w, h;
+	SDL_Point p;
+
+    SDL_Rect Object_r;
+	p = this->getPosition();
+	w = this->getWidth();
+	h = this->getHeight();
+
+    // Translate coordinates according to gameViev
+    p.x -= gVPosition.x;
+    p.y -= gVPosition.y;
+
+	Object_r.x = p.x;
+	Object_r.y = p.y;
+	Object_r.w = w;
+	Object_r.h = h;
+
+    p.x = w / 2;
+    p.y = h / 2;
+
+    SDL_RenderCopyEx(renderer, this->getTexture(), NULL, &Object_r, this->angle, &p, SDL_FLIP_NONE);
+}

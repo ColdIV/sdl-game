@@ -8,7 +8,11 @@ Object::Object (SDL_Point position, int32_t width, int32_t height) {
     this->height = height;
 }
 
-Object::~Object () {}
+Object::~Object () {
+    if (this->texture != nullptr) {
+        SDL_DestroyTexture(this->texture);
+    }
+}
 
 SDL_Point Object::getPosition () const {
     return this->position;
@@ -31,6 +35,10 @@ int32_t Object::getHeight () const {
     return this->height;
 }
 
+SDL_Texture* Object::getTexture () const {
+    return this->texture;
+}
+
 void Object::setWidth (int32_t width) {
     this->width = width;
 }
@@ -39,8 +47,26 @@ void Object::setHeight (int32_t height) {
     this->height = height;
 }
 
+void Object::setImagePath (const char* path) {
+    this->imagePath = path;
+}
+#include <iostream>
+void Object::loadTexture (SDL_Renderer *renderer) {
+    SDL_Surface *image = IMG_Load(this->imagePath);
+    
+    if (image != nullptr) {
+        this->texture = SDL_CreateTextureFromSurface(renderer, image);
+        SDL_FreeSurface(image);
+    } else {
+        std::cout << "IMG_Load: " << IMG_GetError() << "\n";
+    }
+}
 
 void Object::draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight) {
+    if (this->texture == nullptr) {
+        this->loadTexture(renderer);
+    }
+
     int32_t w, h;
 	SDL_Point p;
 
@@ -58,6 +84,5 @@ void Object::draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth
 	Object_r.w = w;
 	Object_r.h = h;
 
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-	SDL_RenderFillRect(renderer, &Object_r);
+    SDL_RenderCopy(renderer, this->texture, NULL, &Object_r);
 }
