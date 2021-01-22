@@ -2,8 +2,8 @@ OBJS = *.cpp
 
 BIN = game
 HFILES = inc/*.cpp
-INC = -ID:\programs\SDL2\SDL2-2.0.12\i686-w64-mingw32\include -ID:\programs\SDL2\SDL2-2.0.12\i686-w64-mingw32\include\SDL2 -ID:\programs\SDL2\SDL2_image-2.0.5\i686-w64-mingw32\include
-LIB = -LD:\programs\SDL2\SDL2-2.0.12\i686-w64-mingw32\lib -LD:\programs\SDL2\SDL2_image-2.0.5\i686-w64-mingw32\lib
+INC = -Ilibs\SDL2\SDL2-2.0.12\i686-w64-mingw32\include -Ilibs\SDL2\SDL2-2.0.12\i686-w64-mingw32\include\SDL2 -Ilibs\SDL2\SDL2_image-2.0.5\i686-w64-mingw32\include
+LIB = -Llibs\SDL2\SDL2-2.0.12\i686-w64-mingw32\lib -Llibs\SDL2\SDL2_image-2.0.5\i686-w64-mingw32\lib
 DEPENDENCIES = libs\*.dll
 WINFLAGS = -w -lmingw32
 PRODFLAGS = -Wl,-subsystem,windows
