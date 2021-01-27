@@ -32,8 +32,11 @@ void MoveableObject::turn (int32_t direction) {
 SDL_Point MoveableObject::move (int32_t direction) {
     SDL_Point tPos = this->getPosition();
     int32_t x, y;
-    x = tPos.x + (cos(this->getAngle()) * this->getSpeed()) * direction;
-    y = tPos.y + (sin(this->getAngle()) * this->getSpeed()) * direction;
+    // To be honest: I don't know why I need the `.5 +` here. If you do, please tell me.
+    // I assume it's because of the conversion to `int32_t` and with the `.5` added it rounds correctly.
+    // I just happened to find this when I was debugging an error where the player always drifts towards the upper left corner.
+    x = .5 + tPos.x + (cos(this->getAngle()) * this->getSpeed()) * direction;
+    y = .5 + tPos.y + (sin(this->getAngle()) * this->getSpeed()) * direction;
     
     return {x, y};
 }
