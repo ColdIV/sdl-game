@@ -1,7 +1,7 @@
 #include "inc/Game.h"
 
 int main (int argc, char *argv[]) {
-    // Creat and start game
+    // Create and start game
     Game game = Game ();
     game.start();
 }
