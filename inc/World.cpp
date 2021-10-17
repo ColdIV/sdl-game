@@ -21,62 +21,46 @@ int32_t World::getHeight () {
 
 void World::update () {
     SDL_Point move = { 0, 0 };
+    int32_t speed = this->player.getSpeed();
     const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
-    // Set X and Y direction according to keystates
     if (keystates[SDL_SCANCODE_W]) {
-        move.y += 1;
+        move.y += -1 * speed;
     }
     if (keystates[SDL_SCANCODE_A]) {
-        move.x -= 1;
+        move.x += -1 * speed;
     }
     if (keystates[SDL_SCANCODE_S]) {
-        move.y -= 1;
+        move.y += 1 * speed;
     }
     if (keystates[SDL_SCANCODE_D]) {
-        move.x += 1;
+        move.x += 1 * speed;
     }
 
-    // Remember old position
-    SDL_Point oldPosition = this->player.getPosition();
-    // Only turn when moving forwards or backwards
-    // not sure what's better @TODO: decide
-    if (move.y != 0 || true) {
-        // Mirror backwards turn direction
-        if (move.y < 0) {
-            move.x *= -1;
-        }
-        // Turn (rotate) the player
-        this->player.turn(move.x);
-    }
-    // Get new position
-    SDL_Point newPosition = this->player.move(move.y);
-
-    // Check collision with new position
+    // Move according to pressed buttons
+    // But check collision first...
+    SDL_Point newPosition, oldPosition = this->player.getPosition();;
+    newPosition.x = oldPosition.x + move.x;
+    newPosition.y = oldPosition.y + move.y;
     int32_t width = this->player.getWidth();
     int32_t height = this->player.getHeight();
-    bool checkX = true, checkY = true;
+
     for (CollidableObject co : this->obstacles) {
         // Collision on X movement
         if (co.collidesWithRect({newPosition.x, oldPosition.y}, width, height)) {
-            checkX = false;
+            move.x = 0;
         }
 
         // Collision on Y movement
         if (co.collidesWithRect({oldPosition.x, newPosition.y}, width, height)) {
-            checkY = false;
+            move.y = 0;
         }
 
         // If both collide, break out of loop
-        if (checkX == false && checkY == false) {
-            break;
-        }
+        if (move.x == 0 && move.y == 0) break;
     }
 
-    // Only move player to new position if no collision is detected
-    if (move.y != 0 && checkX && checkY) {
-        this->player.setPosition(newPosition);
-    }
+    this->player.move(move.x, move.y);
 
     // Update gameView position
     this->gameView.move(this->player.getPosition(), this->player.getWidth(), this->player.getHeight());
