@@ -41,6 +41,14 @@ SDL_Point MoveableObject::move (int32_t direction) {
     return {x, y};
 }
 
+bool MoveableObject::collides (CollidableObject obj) {
+    // @TODO
+}
+
+bool MoveableObject::collides (MoveableObject obj) {
+    // @TODO
+}
+
 void MoveableObject::draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight) {
     if (this->getTexture() == nullptr) {
         this->loadTexture(renderer);
@@ -69,7 +77,7 @@ void MoveableObject::draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t
     SDL_RenderCopyEx(renderer, this->getTexture(), NULL, &Object_r, this->angle * 180.0 / M_PI, &p, SDL_FLIP_NONE);
 
 
-    // Debug
+    // Debug (draw dot at facing direction)
     SDL_Point move_p = this->move(1);
     SDL_Rect move_r;
     move_r.x = move_p.x - gVPosition.x + w / 2;

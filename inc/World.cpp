@@ -40,7 +40,8 @@ void World::update () {
     // Remember old position
     SDL_Point oldPosition = this->player.getPosition();
     // Only turn when moving forwards or backwards
-    if (move.y != 0) {
+    // not sure what's better @TODO: decide
+    if (move.y != 0 || true) {
         // Mirror backwards turn direction
         if (move.y < 0) {
             move.x *= -1;
