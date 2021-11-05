@@ -1,7 +1,7 @@
-OBJS = *.cpp
+OBJS = main.cpp
 
 BIN = game
-HFILES = inc/*.cpp
+HFILES = game/*.cpp
 INC = -Ilibs\SDL2\SDL2-2.0.12\i686-w64-mingw32\include -Ilibs\SDL2\SDL2-2.0.12\i686-w64-mingw32\include\SDL2 -Ilibs\SDL2\SDL2_image-2.0.5\i686-w64-mingw32\include
 LIB = -Llibs\SDL2\SDL2-2.0.12\i686-w64-mingw32\lib -Llibs\SDL2\SDL2_image-2.0.5\i686-w64-mingw32\lib
 DEPENDENCIES = libs\*.dll
