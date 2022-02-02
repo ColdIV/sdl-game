@@ -1,2 +1,4 @@
 *.exe
 bin
+libs/SDL2/*
+!libs/SDL2/README.md
