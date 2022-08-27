@@ -39,6 +39,16 @@ void Object::setHeight (int32_t height) {
     this->height = height;
 }
 
+bool Object::collidesWithRect (SDL_Point position, int32_t width, int32_t height) {
+    SDL_Point tPos = this->getPosition();
+    int32_t tWidth = this->getWidth();
+    int32_t tHeight = this->getHeight();
+
+    return (tPos.x < position.x + width &&
+            tPos.x + tWidth > position.x &&
+            tPos.y < position.y + height &&
+            tPos.y + tHeight > position.y);
+}
 
 void Object::draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight) {
     int32_t w, h;

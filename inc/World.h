@@ -6,7 +6,6 @@
 #include "Player.h"
 #include "Level.h"
 #include "GameView.h"
-#include "CollidableObject.h"
 
 class World {
     private:
@@ -15,11 +14,11 @@ class World {
 
         Level level = Level ();
         int32_t tileSize = 50;
-        std::vector <CollidableObject> obstacles;
+        std::vector <Object> obstacles;
 
     public:
         GameView gameView = GameView ();
-        Player player = Player ();
+        Player player = Player ({ 50, 50 }, 25, 25);
 
         World ();
         

@@ -24,8 +24,8 @@ void Level::save () {
     const char* cpath = &path[0];
 
     std::ofstream File (cpath);
-    for (unsigned y = 0; y < this->_Y; ++y) {
-        for (unsigned x = 0; x < this->_X; ++x) {
+    for (unsigned y = 0; y < this->height; ++y) {
+        for (unsigned x = 0; x < this->width; ++x) {
             File << this->data[x][y] << " "; 
         }
     }
@@ -36,8 +36,8 @@ void Level::load () {
     const char* cpath = &path[0];
 
     std::ifstream File (cpath);
-    for (unsigned y = 0; y < this->_Y; ++y) {
-        for (unsigned x = 0; x < this->_X; ++x) {
+    for (unsigned y = 0; y < this->height; ++y) {
+        for (unsigned x = 0; x < this->width; ++x) {
             File >> this->data[x][y];
         }
     }
@@ -50,8 +50,8 @@ std::vector <Object> Level::getTilesOfType(int type) {
     w = this->tileSize;
     h = this->tileSize;
 
-    for (int y = 0; y < this->_Y; ++y) {
-        for (int x = 0; x < this->_X; ++x) {
+    for (int y = 0; y < this->height; ++y) {
+        for (int x = 0; x < this->width; ++x) {
             if (this->data[x][y] == type) {
                 p = { x * this->tileSize, y * this->tileSize };
                 Object o = Object (p, w, h);
@@ -70,8 +70,8 @@ void Level::draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth,
     w = this->tileSize;
     h = this->tileSize;
 
-    for (int y = 0; y < this->_Y; ++y) {
-        for (int x = 0; x < this->_X; ++x) {
+    for (int y = 0; y < this->height; ++y) {
+        for (int x = 0; x < this->width; ++x) {
             if (this->data[x][y] == 1) {
                 p = { x * this->tileSize, y * this->tileSize };
 
@@ -99,8 +99,8 @@ void Level::draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth,
 // For testing only
 void Level::printToConsole () {
     std::cout << "Level " << this->index << "\n";
-    for (int y = 0; y < this->_Y; ++y) {
-        for (int x = 0; x < this->_X; ++x) {
+    for (int y = 0; y < this->height; ++y) {
+        for (int x = 0; x < this->width; ++x) {
             std::cout << this->data[x][y];
         }
         std::cout << "\n";
@@ -108,11 +108,11 @@ void Level::printToConsole () {
 }
 
 void Level::getExampleLevel () {
-    for (int x = 0; x < this->_X; ++x) {
-        for (int y = 0; y < this->_Y; ++y) {
+    for (int x = 0; x < this->width; ++x) {
+        for (int y = 0; y < this->height; ++y) {
             this->data[x][y] = 0;
 
-            if (1 + y == this->_Y) {
+            if (1 + y == this->height) {
                 this->data[x][y] = 1;
             }
         }

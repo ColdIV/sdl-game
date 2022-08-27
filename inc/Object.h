@@ -12,7 +12,7 @@ class Object {
     public:
         Object ();
 
-        Object (SDL_Point position, int32_t width, int32_t height);
+        explicit Object (SDL_Point position, int32_t width, int32_t height);
 
         ~Object ();
 
@@ -30,7 +30,9 @@ class Object {
         
         void setHeight (int32_t height);
 
-        void draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight);
+        bool collidesWithRect (SDL_Point position, int32_t width, int32_t height);
+
+        virtual void draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight);
 };
 
 #endif

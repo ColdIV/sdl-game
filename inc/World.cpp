@@ -45,7 +45,7 @@ void World::update () {
     int32_t width = this->player.getWidth();
     int32_t height = this->player.getHeight();
 
-    for (CollidableObject co : this->obstacles) {
+    for (Object co : this->obstacles) {
         // Collision on X movement
         if (co.collidesWithRect({newPosition.x, oldPosition.y}, width, height)) {
             move.x = 0;
@@ -79,19 +79,17 @@ void World::draw (SDL_Renderer *renderer) {
 }
 
 void World::loadObstacles () {
-    std::vector <CollidableObject> objects;
+    std::vector <Object> objects;
     
     std::vector <Object> walls = this->level.getTilesOfType(1);
     std::vector <Object> blocks = this->level.getTilesOfType(2);
 
-    for (Object o : walls) {
-        CollidableObject co = CollidableObject(o);
-        objects.push_back(co);
+    for (Object object : walls) {
+        objects.push_back(object);
     }
 
-    for (Object o : blocks) {
-        CollidableObject co = CollidableObject(o);
-        objects.push_back(co);
+    for (Object object : blocks) {
+        objects.push_back(object);
     }
 
     this->obstacles = objects;
