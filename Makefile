@@ -2,12 +2,12 @@ OBJS = *.cpp
 
 BIN = game
 HFILES = inc/*.cpp
-INC = -ID:\programs\SDL2\SDL2-2.0.12\i686-w64-mingw32\include
-LIB = -LD:\programs\SDL2\SDL2-2.0.12\i686-w64-mingw32\lib
+INC = -Ilibs\SDL2\SDL2-2.0.12\x86_64-w64-mingw32\include
+LIB = -Llibs\SDL2\SDL2-2.0.12\x86_64-w64-mingw32\lib
 DEPENDENCIES = libs\*.dll
 WINFLAGS = -w -lmingw32
 PRODFLAGS = -Wl,-subsystem,windows
-FLAGS = -lSDL2main -lSDL2
+FLAGS = -lSDL2main -lSDL2 -static-libgcc -static-libstdc++ -Wl,-Bstatic -lstdc++ -lpthread -Wl,-Bdynamic
 ifeq ($(OS),Windows_NT)
 	ARGS = $(INC) $(LIB) $(WINFLAGS) $(FLAGS)
 else
