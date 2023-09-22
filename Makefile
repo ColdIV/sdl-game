@@ -1,6 +1,5 @@
 OBJS = *.cpp
 
-BIN = game
 HFILES = inc/*.cpp
 INC = -Ilibs\SDL2\SDL2-2.0.12\x86_64-w64-mingw32\include
 LIB = -Llibs\SDL2\SDL2-2.0.12\x86_64-w64-mingw32\lib
@@ -10,35 +9,33 @@ PRODFLAGS = -Wl,-subsystem,windows
 FLAGS = -lSDL2main -lSDL2 -static-libgcc -static-libstdc++ -Wl,-Bstatic -lstdc++ -lpthread -Wl,-Bdynamic
 ifeq ($(OS),Windows_NT)
 	ARGS = $(INC) $(LIB) $(WINFLAGS) $(FLAGS)
+	BIN = bin/game.exe
 else
 	ARGS = $(INC) $(LIB) $(FLAGS)
+	BIN = bin/game
 endif
 
-
-all : $(OBJS)
+$(BIN) : $(OBJS)
 ifeq ($(OS),Windows_NT)
 	g++ $(HFILES) $(OBJS) $(ARGS) $(PRODFLAGS) -o $(BIN)
 	copy $(DEPENDENCIES) bin
-	copy $(BIN).exe bin
-	del $(BIN).exe
 else
 	g++ $(HFILES) $(OBJS) $(ARGS) -o $(BIN)
-	cp $(BIN) bin
 endif
+
+all : $(BIN)
 
 dev : $(OBJS)
 	g++ $(HFILES) $(OBJS) $(ARGS) -o $(BIN)
 ifeq ($(OS),Windows_NT)
 	copy $(DEPENDENCIES) bin
-	copy $(BIN).exe bin
-	del $(BIN).exe
 else
 	cp $(BIN) bin
 endif
 
 clean:
 ifeq ($(OS),Windows_NT)
-	del bin\$(BIN).exe
+	del $(BIN)
 	del bin\*.dll
 else
 	rm -f $(BIN)
