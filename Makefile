@@ -8,6 +8,8 @@ LDFLAGS := -lSDL2
 SRC_DIR := src
 OBJ_DIR := obj
 BIN_DIR := bin
+LIB_DIR := libs
+LVL_DIR := levels
 
 # List of source files and their corresponding object files
 SOURCES := $(wildcard $(SRC_DIR)/*.cpp)
@@ -32,7 +34,10 @@ all: $(EXECUTABLE)
 
 # Link the object files to create the executable
 $(EXECUTABLE): $(MAIN) $(OBJECTS)
+	@mkdir -p $(BIN_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LDFLAGS)
+	cp $(LIB_DIR)/*.dll $(BIN_DIR)
+	cp -r $(LVL_DIR) $(BIN_DIR)
 
 # Compile the source files into object files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
@@ -50,6 +55,7 @@ depend: .depend
 clean:
 	rm -f ./.depend
 	rm -f $(EXECUTABLE) $(OBJECTS) ./.depend
+	rm -r $(BIN_DIR)
 
 # Include the generated dependencies
 include .depend
