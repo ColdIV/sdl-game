@@ -1,4 +1,4 @@
-#include "inc/Game.h"
+#include "src/Game.h"
 
 int main (int argc, char *argv[]) {
     // Create and start game
