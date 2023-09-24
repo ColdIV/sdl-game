@@ -52,22 +52,22 @@ bool Object::collidesWithRect (SDL_Point position, int32_t width, int32_t height
 
 void Object::draw (SDL_Renderer *renderer, SDL_Point gVPosition, int32_t gVWidth, int32_t gVHeight) {
     int32_t w, h;
-	SDL_Point p;
+    SDL_Point p;
 
     SDL_Rect Object_r;
-	p = this->getPosition();
-	w = this->getWidth();
-	h = this->getHeight();
+    p = this->getPosition();
+    w = this->getWidth();
+    h = this->getHeight();
 
     // Translate coordinates according to gameViev
     p.x -= gVPosition.x;
     p.y -= gVPosition.y;
 
-	Object_r.x = p.x;
-	Object_r.y = p.y;
-	Object_r.w = w;
-	Object_r.h = h;
+    Object_r.x = p.x;
+    Object_r.y = p.y;
+    Object_r.w = w;
+    Object_r.h = h;
 
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-	SDL_RenderFillRect(renderer, &Object_r);
+    SDL_RenderFillRect(renderer, &Object_r);
 }

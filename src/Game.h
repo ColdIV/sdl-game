@@ -12,14 +12,14 @@ class Game {
 
         // SDL
         SDL_Window *window = NULL;
-		SDL_Renderer *renderer = NULL;
+        SDL_Renderer *renderer = NULL;
         SDL_Event event;
 
         // Game attributes
         bool running = false;
-		char *title = (char*)"Title";
-		int32_t width = 640;
-		int32_t height = 480;
+        char *title = (char*)"Title";
+        int32_t width = 640;
+        int32_t height = 480;
 
         World world = World ();
         Timer fpsTimer = Timer ();
@@ -41,10 +41,10 @@ class Game {
         void quit ();
 
         void init ();
-		
-		void update ();
-		
-		void draw ();
+                
+                void update ();
+                
+                void draw ();
 };
 
 #endif

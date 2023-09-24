@@ -68,7 +68,7 @@ void World::update () {
 
 void World::draw (SDL_Renderer *renderer) {
     int32_t w, h;
-	SDL_Point p;
+    SDL_Point p;
 
     p = this->gameView.getPosition();
     w = this->gameView.getWidth();

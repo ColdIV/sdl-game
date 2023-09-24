@@ -5,7 +5,7 @@ GameView::GameView () {
     this->width = 0;
     this->height = 0;
 }
-        
+
 GameView::GameView (SDL_Point position, int32_t width, int32_t height) {
     this->position = position;
     this->width = width;
