@@ -1,43 +1,63 @@
-OBJS = *.cpp
+# Define the compiler and compiler flags
+CC := g++
+CFLAGS := -Wall -Wextra -std=c++11
+INCLUDES := -I./include
+LDFLAGS := -lSDL2 
 
-HFILES = inc/*.cpp
-INC = -Ilibs\SDL2\SDL2-2.0.12\x86_64-w64-mingw32\include
-LIB = -Llibs\SDL2\SDL2-2.0.12\x86_64-w64-mingw32\lib
-DEPENDENCIES = libs\*.dll
-WINFLAGS = -w -lmingw32
-PRODFLAGS = -Wl,-subsystem,windows
-FLAGS = -lSDL2main -lSDL2 -static-libgcc -static-libstdc++ -Wl,-Bstatic -lstdc++ -lpthread -Wl,-Bdynamic
+# Define the source and object directories
+SRC_DIR := src
+OBJ_DIR := obj
+BIN_DIR := bin
+LIB_DIR := libs
+LVL_DIR := levels
+
+# List of source files and their corresponding object files
+SOURCES := $(wildcard $(SRC_DIR)/*.cpp)
+OBJECTS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SOURCES))
+MAIN := main.cpp
+
+# Set platform-specific variables and commands
 ifeq ($(OS),Windows_NT)
-	ARGS = $(INC) $(LIB) $(WINFLAGS) $(FLAGS)
-	BIN = bin/game.exe
+	# Windows settings
+	INCLUDES += -Ilibs\SDL2\SDL2-2.0.12\x86_64-w64-mingw32\include
+	LDFLAGS += -Llibs\SDL2\SDL2-2.0.12\x86_64-w64-mingw32\lib -w -lmingw32 -Wl,-subsystem,windows -lSDL2main -lSDL2 -static-libgcc -static-libstdc++ -Wl,-Bstatic -lstdc++ -lpthread -Wl,-Bdynamic
+	EXECUTABLE := $(BIN_DIR)/game.exe
 else
-	ARGS = $(INC) $(LIB) $(FLAGS)
-	BIN = bin/game
+	# Linux settings
+	INCLUDES += `sdl2-config --cflags`
+	LDFLAGS += `sdl2-config --libs`
+	EXECUTABLE := $(BIN_DIR)/game
 endif
 
-$(BIN) : $(OBJS)
-ifeq ($(OS),Windows_NT)
-	g++ $(HFILES) $(OBJS) $(ARGS) $(PRODFLAGS) -o $(BIN)
-	copy $(DEPENDENCIES) bin
-else
-	g++ $(HFILES) $(OBJS) $(ARGS) -o $(BIN)
-endif
+# Default target
+all: $(EXECUTABLE)
 
-all : $(BIN)
+# Link the object files to create the executable
+$(EXECUTABLE): $(MAIN) $(OBJECTS)
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LDFLAGS)
+	cp $(LIB_DIR)/*.dll $(BIN_DIR)
+	cp -r $(LVL_DIR) $(BIN_DIR)
 
-dev : $(OBJS)
-	g++ $(HFILES) $(OBJS) $(ARGS) -o $(BIN)
-ifeq ($(OS),Windows_NT)
-	copy $(DEPENDENCIES) bin
-else
-	cp $(BIN) bin
-endif
+# Compile the source files into object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
+# Generate dependencies using makedepend
+depend: .depend
+
+.depend: $(SOURCES)
+	rm -f ./.depend
+	$(CC) $(CFLAGS) -MM $^ | sed -E 's/(^[a-zA-Z]+).o:/$(OBJ_DIR)\/\1.o:/g' >> ./.depend;
+
+# Clean the generated files
 clean:
-ifeq ($(OS),Windows_NT)
-	del $(BIN)
-	del bin\*.dll
-else
-	rm -f $(BIN)
-	rm -f bin/$(BIN)
-endif
+	rm -f ./.depend
+	rm -f $(EXECUTABLE) $(OBJECTS) ./.depend
+	rm -r $(BIN_DIR)
+
+# Include the generated dependencies
+include .depend
+
+.PHONY: all clean depend
